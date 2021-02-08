@@ -1,20 +1,20 @@
-# Live-Project
+# Boot Camp Live Project
 Collection of contributed work during two weekly sprints
 
 ## Introduction
-In 2021, I completed a programming boot camp through the Tech Academy, with my final project consisting of collaboration with peers and instructors on two weekly sprints for developing a full-scale ASP.NET MVC Web Application using the Entity Framework in C# and Visual Studio. The project was months in the making prior to my onboarding, and focussed on the website interactivity for managing content and productions for a theater and acting company based in Portland, Oregon. It was designed to be a content management service (aka CMS) for users who are not technically saavy and want to easily manage what displays in their website, while also designed to help manage login capability for subscribers, and maintain a wiki of past performances and performers. While collaborating on this project, I worked zealously as a full-stack devloper, with great opportunities for front and back-end development, code overhauls, and bug fixing. Although my time on the project was limited to the 2-weeks of development, the collaboration experience with my peers and instructors has greatly informed my understanding and experience of what it is like to work (remotely) with a team on a large-scale project.
+In 2021, I completed a programming boot camp through the Tech Academy. My final project was a collaboration with peers and instructors on two weekly sprints for developing a full-scale ASP.NET MVC Web Application using the Entity Framework in C# and Visual Studio. The project was months in the making prior to my onboarding, and focused on the website interactivity for managing content and productions for a theater and acting company based in Portland, Oregon. It was designed to be a content management service (aka CMS) for users who are not technically saavy and want to easily manage what displays in their website, while also designed to help manage login capability for subscribers, and maintain a wiki of past performances and performers. Although my time on the project was limited to the 2-weeks of development, the collaboration experience with my peers and instructors has greatly informed my understanding and experience of what it is like to work (remotely) with a team on a large-scale project.
 
 ### Contents:
-* CalendarEvents Delete Button Positioning Bug Fix
-* Toggle Password Privacy
-* Account Profile Image
-* Show Number of Subscribers in SubscriptionPlan
-* Overhaul
+* [CalendarEvents Delete Button Positioning Bug Fix](#calendarevents-delete-button-positioning-bug-fix)
+* [Toggle Password Privacy](#toggle-password-privacy)
+* [Account Profile Image](#account-profile-image)
+* [Show Number of Subscribers in SubscriptionPlan](#show-number-of-subscribers-in-subscriptionplan)
+* [Overhaul](#overhaul)
 
 ## Front-End Stories
 ### CalendarEvents Delete Button Positioning Bug Fix
 On the CalendarEvents Index page, there was a trashcan button was used to delete selected CalendarEvents.  The button not aligned with the other buttons in that container: Create New, Bulk Add.  I was tasked with fixing the alignment of that button so that it lined up with the other buttons prior and during OnClick() events. Additionally, the "Create New" and "Bulk Add buttons" were using old button classes, not new standardized button classes. I changed the classes that those buttons were using to bootstrap "btn btn-main" classes.
-```ruby
+```css
 .btn-danger.msg-del-btn {
     display: inline-block;
 -   padding-top: 13px; /*Added this to center the trash icon from top to bottom.*/
@@ -27,7 +27,7 @@ On the CalendarEvents Index page, there was a trashcan button was used to delete
     border: none;
 }
 ```
-```ruby
+```css
 .btn-danger.msg-del-btn.inactive {
       display: inline-block;
 -     vertical-align: top;
@@ -38,7 +38,7 @@ On the CalendarEvents Index page, there was a trashcan button was used to delete
       background: grey;
       height: 100%;
 ```
-```ruby
+```html
 @if (User.IsInRole("Admin"))
   {
 -     <button class="iconBtn" onclick="location.href='@Url.Action("Create")'">
@@ -53,7 +53,7 @@ On the CalendarEvents Index page, there was a trashcan button was used to delete
 ### Toggle Password Privacy
 On the ChangePassword page, the textboxes always displayed the typed in text as '•••••••'.  We wanted to let the User have the option to see what they typed in. To do this, I added a Font Awesome icon to the end of each input element on that page that toggles the text between the hidden state (•••••••) and the non-hidden state (somepass).  Additionally, I used Jquery to toggle between Font Awesome's 'eye' and 'eye-slash' icons to indicate the 'hide' or 'show' buttons (When the password is hidden, the 'eye' icon should be shown, indicating that the password can be unhidden.  When the password is not being hidden, the 'eye-slash' icon should be shown.).
 
-```ruby
+```html
 <div class="form-group">
       @Html.LabelFor(m => m.OldPassword, new { @class = "form-text-labels" })
       <div class="col-md-12">
@@ -79,7 +79,7 @@ On the ChangePassword page, the textboxes always displayed the typed in text as 
       </div>
     </div>
 ```
-```ruby
+```css
 input[type=text], select {
     width: 100%;
     padding: 12px 20px;
@@ -89,7 +89,7 @@ input[type=text], select {
     border: 1px solid #ccc;
     border-radius: 4px;
 ```
-```ruby
+```css
 /* Styling for password toggle icon */
 .fa.fa-eye.field_icon.toggle-password, .fa.fa-eye-slash.field_icon.toggle-password {
     color: black;
@@ -100,7 +100,7 @@ input[type=text], select {
     background: white; 
 }
 ```
-```ruby
+```javascript
 // Toggle for Current Password field
 $("body").on('click', '.toggle-password', function () {
     $(this).toggleClass("fa-eye fa-eye-slash");
@@ -114,18 +114,18 @@ $("body").on('click', '.toggle-password', function () {
 ```
 #### Account Profile Image
 This story took the greatest bulk of effort to accomplish. We wanted to allow Users to have Photos for their account.  In order to do so, I approached the story using several steps:
-* *Create a new navigation property in the ApplicationUser class for the Photo.  
-* *In the ManageController, create two methods: ChangeProfilePhoto (Get and Post method).  
-* *Create a ChangeProfilePhoto View in the Manage folder.  
-* *The ChangeProfilePhoto page needed to show the User's current Profile Picture and an option to upload an image.  
-* *When the User selects an image from their file system, display a preview of that image on the page.  
-* *Add a Submit button to that page that submits the form and changes the User's Profile Image.
+* *Create a new navigation property in the ApplicationUser class for the Photo.*  
+* *In the ManageController, create two methods: ChangeProfilePhoto (Get and Post method).*
+* *Create a ChangeProfilePhoto View in the Manage folder.*  
+* *The ChangeProfilePhoto page needed to show the User's current Profile Picture and an option to upload an image.*  
+* *When the User selects an image from their file system, display a preview of that image on the page.*  
+* *Add a Submit button to that page that submits the form and changes the User's Profile Image.*
 
 On the Manage Index page, I created a new edit icon button and superimposed it to the top-left of the image on that page using css and bootstrap.  Clicking that edit icon needed to take the User to the ChangeProfilePhoto page.
 
 When I started the story, the default "Photo Unavailable" photo was displayed if there wasn't a Cast Member associated with the current User, meaning only when a User was a Cast Member would their photo be displayed.  We wanted to change this so that the photo, provided by the ApplicationUser's photo property, displayed this by default.  If the ApplicationUser didn't have a Photo, the "Photo Unavailable" photo would be displayed.  However, if the ApplicationUser doesn't have a Photo *and* they were a Cast Member, I needed to display that Cast Member's photo in place of the ApplicationUser's photo.
 
-```ruby
+```csharp
  // Retrieves user profile picture page
         [HttpGet]
         public ActionResult ChangeProfilePhoto()
@@ -165,12 +165,12 @@ When I started the story, the default "Photo Unavailable" photo was displayed if
             return View(model);
         }
  ```
- ```ruby
+ ```csharp
  // AccountViewModels
 [Display(Name = "Profile Image")]
 public byte[] ProfileImage { get; set; }
  ```
- ```ruby
+ ```csharp
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
@@ -205,7 +205,7 @@ public byte[] ProfileImage { get; set; }
         //list of Users that a particular User has blocked
         [Display(Name ="Blocked Users")]
  ```
- ```ruby
+ ```html
  <h2>@ViewBag.Title.</h2>
 - @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
 + @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @role = "form" , enctype = "multipart/form-data" }))
@@ -225,7 +225,7 @@ public byte[] ProfileImage { get; set; }
         </div>
         <br />
  ```
- ```ruby
+ ```html
  @{
   WebImage photo = null;
   var newFileName = "";
@@ -273,7 +273,7 @@ public byte[] ProfileImage { get; set; }
 }
  ```
  Logic for displaying image based on User ID
- ```ruby
+ ```html
  @model TheatreCMS.Models.IndexViewModel
 <div class="container text-center">
   <h2 class="mt-3">Change your account settings</h2>
@@ -314,7 +314,7 @@ public byte[] ProfileImage { get; set; }
     </div>
  ```
  CSS Styling for edit button
- ```ruby
+ ```css
  /* Styling for edit icon button */
 .ChangeProfilePhoto {
     position: absolute;
@@ -327,7 +327,7 @@ public byte[] ProfileImage { get; set; }
 ### Show Number of Subscribers in SubscriptionPlan
 On the SubscriptionPlans Index page, there needed to be an added column to the HTML table for the number of Subscribers subscribed to each tiered plan, such as Bronze, Silver, Gold and Platinum. If there were 3 Gold Subscribers, for example, the cell for the Gold row should have the number 3. To do this, I created a simple lambda expression to access the database to display all users within their subscription plans.
 
-```ruby
+```html
 <table class="table">
     <tr>
       <th>
@@ -342,7 +342,7 @@ On the SubscriptionPlans Index page, there needed to be an added column to the H
       <th></th>
     </tr>
 ```
-```ruby
+```html
 @foreach (var item in Model)
     {
   <tr>
