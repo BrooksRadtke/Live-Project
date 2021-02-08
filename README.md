@@ -50,6 +50,8 @@ On the CalendarEvents Index page, there was a trashcan button was used to delete
           <i class="fas fa-mail-bulk"></i> Bulk Add <!--Added a add button -->
       </button>
 ```
+*Jump to Contents [here](#contents)*
+
 ### Toggle Password Privacy
 On the ChangePassword page, the textboxes always displayed the typed in text as '•••••••'.  We wanted to let the User have the option to see what they typed in. To do this, I added a Font Awesome icon to the end of each input element on that page that toggles the text between the hidden state (•••••••) and the non-hidden state (somepass).  Additionally, I used Jquery to toggle between Font Awesome's 'eye' and 'eye-slash' icons to indicate the 'hide' or 'show' buttons (When the password is hidden, the 'eye' icon should be shown, indicating that the password can be unhidden.  When the password is not being hidden, the 'eye-slash' icon should be shown.).
 
@@ -112,6 +114,8 @@ $("body").on('click', '.toggle-password', function () {
     }
 });
 ```
+*Jump to Contents [here](#contents)*
+
 #### Account Profile Image
 This story took the greatest bulk of effort to accomplish. We wanted to allow Users to have Photos for their account.  In order to do so, I approached the story using several steps:
 * *Create a new navigation property in the ApplicationUser class for the Photo.*  
@@ -322,6 +326,7 @@ public byte[] ProfileImage { get; set; }
     left: 8px;
 }
  ```
+ *Jump to Contents [here](#contents)*
 
 ## Back-End Stories
 ### Show Number of Subscribers in SubscriptionPlan
@@ -363,6 +368,7 @@ On the SubscriptionPlans Index page, there needed to be an added column to the H
   </tr>
     }
 ```
+*Jump to Contents [here](#contents)*
 
 ## Overhaul
 There were many unnecessary HTML layouts on the Developer/Templates page that needed to be removed removed.  The page was overhauled from it's previous 240 lines of code down to 60 lines, and in it's place, I created a new layout. 
@@ -372,6 +378,7 @@ The page was given a title "Templates page" and a subtitle below it describing w
 Instead of having a nav button for the Site.css button and the helper methods, I created a section on the page called "Useful Styles" for future site developers for reference.
 
 Additionally, I resolved formatting conflicts caused by previous JavaScript methods.
+*Jump to Contents [here](#contents)*
 
 ## Additional Skills Learned
 * Working as part of a remote team of developers to identify and resolve bugs for increased usability in full-stack development cycles.
